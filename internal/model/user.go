@@ -33,11 +33,12 @@ func (u *User) Validate() error {
 	if len(u.Username) > 32 {
 		return NewValidationError("username", "用户名不能超过 32 个字符")
 	}
-	u.Nickname = strings.TrimSpace(u.Nickname)
+	if u.Nickname == "" {
+		u.Nickname = u.Username
+	}
 	if u.Points < 0 {
 		return NewValidationError("points", "积分余额不能为负数")
 	}
-	u.Status = strings.TrimSpace(u.Status)
 	if u.Status == "" {
 		u.Status = UserActive
 	}

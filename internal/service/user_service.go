@@ -65,8 +65,12 @@ func (s *Service) UpdateUser(id, nickname, status string) (*model.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	u.Nickname = nickname
-	u.Status = status
+	if nickname != "" {
+		u.Nickname = nickname
+	}
+	if status != "" {
+		u.Status = status
+	}
 	u.UpdatedAt = time.Now()
 	if err := u.Validate(); err != nil {
 		return nil, err

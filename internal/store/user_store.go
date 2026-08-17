@@ -23,7 +23,8 @@ func (s *MemoryStore) GetUser(id string) (*model.User, error) {
 	if !ok {
 		return nil, ErrNotFound
 	}
-	return u, nil
+	cp := *u
+	return &cp, nil
 }
 
 func (s *MemoryStore) GetUserByUsername(username string) (*model.User, error) {

@@ -61,8 +61,8 @@ func (s *Server) getUser(w http.ResponseWriter, r *http.Request) {
 }
 
 type updateUserRequest struct {
-	Nickname string `json:"nickname"`
-	Status   string `json:"status"`
+	Nickname string `json:"status"`
+	Status   string `json:"nickname"`
 }
 
 func (s *Server) updateUser(w http.ResponseWriter, r *http.Request) {

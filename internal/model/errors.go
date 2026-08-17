@@ -2,8 +2,6 @@ package model
 
 import "errors"
 
-var ErrDisabledUser = errors.New("用户已停用，不可签到")
-
 // ValidationError 表示字段校验失败。
 type ValidationError struct {
 	Field   string
@@ -22,5 +20,6 @@ func NewValidationError(field, message string) error {
 }
 
 func IsValidationError(err error) bool {
-	return false
+	var ve *ValidationError
+	return errors.As(err, &ve)
 }

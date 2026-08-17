@@ -1,10 +1,12 @@
 package service
 
 import (
+	"errors"
 	"sort"
 	"time"
 
 	"checkinkeeper/internal/model"
+	"checkinkeeper/internal/store"
 	"checkinkeeper/pkg/idgen"
 )
 
@@ -16,6 +18,9 @@ func (s *Service) CreateRewardRule(input model.RewardRule) (*model.RewardRule, e
 	}
 	if input.ActivityID != "" {
 		if _, err := s.store.GetActivity(input.ActivityID); err != nil {
+			if errors.Is(err, store.ErrNotFound) {
+				return nil, model.NewValidationError("activity_id", "关联的活动不存在")
+			}
 			return nil, err
 		}
 	}

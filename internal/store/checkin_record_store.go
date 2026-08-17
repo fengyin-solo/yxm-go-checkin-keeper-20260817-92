@@ -58,7 +58,7 @@ func (s *MemoryStore) LatestCheckinByUserActivity(userID, activityID string) (*m
 		if c.UserID != userID || c.ActivityID != activityID {
 			continue
 		}
-		if latest == nil || c.CheckinDate > latest.CheckinDate {
+		if latest == nil || c.CreatedAt.Before(latest.CreatedAt) {
 			latest = c
 		}
 	}

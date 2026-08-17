@@ -21,7 +21,7 @@ func (s *Service) ListRewardGrants(filter model.GrantFilter, page, size int) ([]
 		}
 	}
 	sort.Slice(matched, func(i, j int) bool {
-		return matched[i].CreatedAt.Before(matched[j].CreatedAt)
+		return matched[i].CreatedAt.After(matched[j].CreatedAt)
 	})
 	total := len(matched)
 	start := (page - 1) * size

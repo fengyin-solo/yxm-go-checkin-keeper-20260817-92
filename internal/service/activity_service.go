@@ -88,7 +88,7 @@ func (s *Service) TransitionActivity(id, to string) (*model.Activity, error) {
 		return nil, err
 	}
 	if !model.CanActivityTransition(a.Status, to) {
-		return nil, model.NewValidationError("status", "活动状态不允许从 "+a.Status+" 流转到 "+to)
+		return nil, store.ErrConflict
 	}
 	a.Status = to
 	a.UpdatedAt = time.Now()

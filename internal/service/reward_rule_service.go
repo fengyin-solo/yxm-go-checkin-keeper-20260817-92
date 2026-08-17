@@ -16,7 +16,7 @@ func (s *Service) CreateRewardRule(input model.RewardRule) (*model.RewardRule, e
 	}
 	if input.ActivityID != "" {
 		if _, err := s.store.GetActivity(input.ActivityID); err != nil {
-			return nil, model.NewValidationError("activity_id", "关联活动不存在")
+			return nil, err
 		}
 	}
 	now := time.Now()

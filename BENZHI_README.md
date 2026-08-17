@@ -1,4 +1,4 @@
-# yxm-go-checkin-keeper-20260817-92
+# checkin-keeper__002
 
 ## 标准命令
 

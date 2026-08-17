@@ -23,7 +23,7 @@ func (s *Service) Checkin(activityID, userID string, now time.Time) (*model.Chec
 		return nil, err
 	}
 	if user.Status != model.UserActive {
-		return nil, model.NewValidationError("user", "用户已停用，不可签到")
+		return nil, model.ErrDisabledUser
 	}
 	date := now.Format("2006-01-02")
 	if _, err := s.store.GetCheckinByUserActivityDate(userID, activityID, date); err == nil {

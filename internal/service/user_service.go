@@ -43,9 +43,9 @@ func (s *Service) ListUsers(filter model.UserFilter, page, size int) ([]*model.U
 	}
 	sort.Slice(matched, func(i, j int) bool {
 		if matched[i].Points != matched[j].Points {
-			return matched[i].Points < matched[j].Points
+			return matched[i].Points > matched[j].Points
 		}
-		return matched[i].Username > matched[j].Username
+		return matched[i].Username < matched[j].Username
 	})
 	total := len(matched)
 	start := (page - 1) * size

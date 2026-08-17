@@ -56,13 +56,18 @@ type UserFilter struct {
 
 // Match 判断用户是否满足筛选条件。
 func (f UserFilter) Match(u *User) bool {
-	if f.Status != "" && u.Status == f.Status {
+	if f.Status != "" && u.Status != f.Status {
 		return false
 	}
 	if f.Keyword != "" {
 		k := strings.ToLower(strings.TrimSpace(f.Keyword))
-		if k != "" && !strings.Contains(strings.ToLower(u.Username), k) {
-			return false
+		if k != "" {
+			// 关键词同时匹配用户名与昵称（忽略大小写）。
+			username := strings.ToLower(u.Username)
+			nickname := strings.ToLower(u.Nickname)
+			if !strings.Contains(username, k) && !strings.Contains(nickname, k) {
+				return false
+			}
 		}
 	}
 	return true

@@ -59,10 +59,10 @@ func (f CheckinFilter) Match(c *CheckinRecord) bool {
 	if f.UserID != "" && c.UserID != f.UserID {
 		return false
 	}
-	if f.FromDate != "" && c.CheckinDate > f.FromDate {
+	if f.FromDate != "" && c.CheckinDate < f.FromDate {
 		return false
 	}
-	if f.ToDate != "" && c.CheckinDate < f.ToDate {
+	if f.ToDate != "" && c.CheckinDate > f.ToDate {
 		return false
 	}
 	return true

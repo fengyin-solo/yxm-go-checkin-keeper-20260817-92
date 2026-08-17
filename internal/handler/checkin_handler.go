@@ -40,8 +40,8 @@ func (s *Server) listCheckins(w http.ResponseWriter, r *http.Request) {
 	filter := model.CheckinFilter{
 		ActivityID: r.URL.Query().Get("activity_id"),
 		UserID:     r.URL.Query().Get("user_id"),
-		FromDate:   r.URL.Query().Get("to_date"),
-		ToDate:     r.URL.Query().Get("from_date"),
+		FromDate:   r.URL.Query().Get("from_date"),
+		ToDate:     r.URL.Query().Get("to_date"),
 	}
 	items, total, err := s.svc.ListCheckinRecords(filter, pp.Page, pp.Size)
 	if err != nil {

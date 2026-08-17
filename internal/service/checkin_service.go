@@ -149,7 +149,7 @@ func (s *Service) ListCheckinRecords(filter model.CheckinFilter, page, size int)
 	}
 	sort.Slice(matched, func(i, j int) bool {
 		if matched[i].CheckinDate != matched[j].CheckinDate {
-			return matched[i].CheckinDate < matched[j].CheckinDate
+			return matched[i].CheckinDate > matched[j].CheckinDate
 		}
 		return matched[i].CreatedAt.After(matched[j].CreatedAt)
 	})
@@ -229,9 +229,10 @@ func (s *Service) GetUserCalendar(userID, activityID, month string) (*CheckinCal
 			continue
 		}
 		if len(c.CheckinDate) >= 7 && c.CheckinDate[:7] == month {
-			calendar.Dates = append([]string{c.CheckinDate}, calendar.Dates...)
+			calendar.Dates = append(calendar.Dates, c.CheckinDate)
 		}
 	}
+	sort.Strings(calendar.Dates)
 	calendar.Count = len(calendar.Dates)
 	return calendar, nil
 }

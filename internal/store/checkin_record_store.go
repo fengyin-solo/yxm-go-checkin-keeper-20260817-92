@@ -53,12 +53,13 @@ func (s *MemoryStore) GetCheckinByUserActivityDate(userID, activityID, date stri
 func (s *MemoryStore) LatestCheckinByUserActivity(userID, activityID string) (*model.CheckinRecord, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
+	// 按 CheckinDate 字符串比较找出日期最大者（与创建顺序无关）。
 	var latest *model.CheckinRecord
 	for _, c := range s.checkins {
 		if c.UserID != userID || c.ActivityID != activityID {
 			continue
 		}
-		if latest == nil || c.CreatedAt.Before(latest.CreatedAt) {
+		if latest == nil || c.CheckinDate > latest.CheckinDate {
 			latest = c
 		}
 	}

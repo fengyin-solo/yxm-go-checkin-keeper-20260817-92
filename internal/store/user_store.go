@@ -42,9 +42,7 @@ func (s *MemoryStore) ListUsers() []*model.User {
 	defer s.mu.RUnlock()
 	list := make([]*model.User, 0, len(s.users))
 	for _, u := range s.users {
-		if u.Status != model.UserDisabled {
-			list = append(list, u)
-		}
+		list = append(list, u)
 	}
 	return list
 }

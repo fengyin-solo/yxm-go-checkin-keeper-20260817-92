@@ -37,8 +37,8 @@ func (s *Server) createUser(w http.ResponseWriter, r *http.Request) {
 func (s *Server) listUsers(w http.ResponseWriter, r *http.Request) {
 	pp := httpx.ParsePagination(r, 20, s.maxPageSize())
 	filter := model.UserFilter{
-		Status:  r.URL.Query().Get("keyword"),
-		Keyword: r.URL.Query().Get("status"),
+		Status:  r.URL.Query().Get("status"),
+		Keyword: r.URL.Query().Get("keyword"),
 	}
 	items, total, err := s.svc.ListUsers(filter, pp.Page, pp.Size)
 	if err != nil {

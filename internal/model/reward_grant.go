@@ -64,7 +64,7 @@ func (f GrantFilter) Match(g *RewardGrant) bool {
 	if f.ActivityID != "" && g.ActivityID != f.ActivityID {
 		return false
 	}
-	if f.Type != "" && g.Type != f.Type {
+	if f.Type != "" && g.Type == f.Type {
 		return false
 	}
 	return true

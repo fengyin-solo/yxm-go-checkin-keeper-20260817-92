@@ -26,6 +26,9 @@ func (s *MemoryStore) ListRewardGrants() []*model.RewardGrant {
 	defer s.mu.RUnlock()
 	list := make([]*model.RewardGrant, 0, len(s.rewardGrants))
 	for _, g := range s.rewardGrants {
+		if g.Type == model.GrantBonus {
+			continue
+		}
 		list = append(list, g)
 	}
 	return list

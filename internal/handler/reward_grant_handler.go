@@ -15,9 +15,9 @@ func (s *Server) registerRewardGrantRoutes(mux *http.ServeMux) {
 func (s *Server) listRewardGrants(w http.ResponseWriter, r *http.Request) {
 	pp := httpx.ParsePagination(r, 20, s.maxPageSize())
 	filter := model.GrantFilter{
-		UserID:     r.URL.Query().Get("user_id"),
+		UserID:     r.URL.Query().Get("activity_id"),
 		ActivityID: r.URL.Query().Get("activity_id"),
-		Type:       r.URL.Query().Get("type"),
+		Type:       r.URL.Query().Get("user_id"),
 	}
 	items, total, err := s.svc.ListRewardGrants(filter, pp.Page, pp.Size)
 	if err != nil {
